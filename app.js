@@ -29,7 +29,7 @@ app.set(
 		layout: false
 	}
 ).use(
-	express.static(__dirname + '/public')
+	'/public', express.static(__dirname + '/public')
 );
 
 /**

@@ -1,6 +1,55 @@
 doctype html
-html
+html(ng-app="chatApp")
 	head
-		title my jade template
-	body
-		h1 Hello World!
+		title ChatRoom
+
+		script(src='/public/components/platform/platform.js')
+		link(rel='import', href='/public/components/core-drawer-panel/core-drawer-panel.html')
+		link(rel='import', href='/public/components/core-header-panel/core-header-panel.html')
+		link(rel='import', href='/public/components/core-toolbar/core-toolbar.html')
+		link(rel='import', href='/public/components/core-menu/core-menu.html')
+		link(rel='import', href='/public/components/core-item/core-item.html')
+		link(rel='import', href='public/components/core-icons/core-icons.html')
+		link(rel='import', href='/public/components/paper-icon-button/paper-icon-button.html')
+		link(rel='import', href='/public/components/paper-input/paper-input.html')
+		link(rel='stylesheet', href='/public/res/style.css')
+
+	body(ng-controller='ChatCtrl')
+		core-drawer-panel#drawerPanel
+			core-header-panel(drawer='drawer')
+				core-toolbar#navheader
+					span Users
+				core-menu
+					core-item(ng-repeat='user in users', label='{{user}}')
+
+			core-header-panel(main='main')
+				core-toolbar#mainheader
+					paper-icon-button#navicon(icon='menu')
+					span(flex='flex') ChatRoom - <span>{{name}}</span>
+				.content(vertical='vertical', layout='layout')
+					.chat(flex='flex')
+						| Holis <br/>
+						| Holis<br/>
+						| Holis<br/>
+						| Holis<br/>
+						| Holis<br/>
+						| Holis<br/>
+						| Holis<br/>
+						| Holis<br/>
+						| Holis<br/>
+						| Holis<br/>
+						| Holis<br/>
+						| Holis<br/>
+						| Holis<br/>
+						| Holis<br/>
+						| Holis<br/>
+						| Holis<br/>
+					.input
+						paper-input(label='Write something funny', multiline='multiline', maxRows='3')
+
+		script(src='/public/components/angular/angular.min.js')
+		script(src='/socket.io/socket.io.js')
+		script(src='/public/components/jquery/dist/jquery.min.js')
+		script(src='/public/js/app.js')
+		script(src='/public/js/services.js')
+		script(src='/public/js/controllers.js')

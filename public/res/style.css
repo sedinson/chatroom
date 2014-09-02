@@ -1,0 +1,28 @@
+body {
+	font-family: sans-serif;
+}
+core-header-panel {
+	background: white;
+}
+#navheader {
+	/*background-color: #56BA89;*/
+}
+.content {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+}
+.chat {
+	padding: 20px;
+	overflow: auto;
+}
+.input {
+	position: relative;
+	padding: 0 20px;
+}
+.input paper-input {
+	width: 100%;
+}
+core-drawer-panel:not([narrow]) #navicon {
+	display: none;
+}
