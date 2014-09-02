@@ -1,0 +1,33 @@
+{
+  "name": "chatroom",
+  "version": "1.0.0",
+  "description": "A chatroom developed in nodejs",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sedinson/chatroom.git"
+  },
+  "keywords": [
+    "chat",
+    "chatroom",
+    "nodejs",
+    "mongo",
+    "socket.io",
+    "realtime"
+  ],
+  "author": "Edinson Salas <edinsonsalas@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sedinson/chatroom/issues"
+  },
+  "homepage": "https://github.com/sedinson/chatroom",
+  "dependencies": {
+    "express": "^4.8.7",
+    "jade": "^1.6.0",
+    "moment": "^2.8.2",
+    "socket.io": "^1.0.6"
+  }
+}
