@@ -4,7 +4,7 @@
   "description": "A chatroom developed in nodejs",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "none"
   },
   "repository": {
     "type": "git",
@@ -28,6 +28,7 @@
     "express": "^4.8.7",
     "jade": "^1.6.0",
     "moment": "^2.8.2",
+    "mongodb": "^1.4.9",
     "socket.io": "^1.0.6"
   }
 }
