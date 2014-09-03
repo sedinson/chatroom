@@ -121,18 +121,20 @@ app.controller('ChatCtrl', function ($scope, socket) {
 		if(code == 13) {
 			e.preventDefault();
 
-			socket.emit('send:message', {
-				message: $scope.message
-			});
+			if($scope.message.length > 0) {
+				socket.emit('send:message', {
+					message: $scope.message
+				});
 
-			$scope.messages.push({
-				provider: 'me',
-				message: $scope.message,
-				name: $scope.name
-			});
+				$scope.messages.push({
+					provider: 'me',
+					message: $scope.message,
+					name: $scope.name
+				});
 
-			$scope.message = "";
-			scrulling();
+				$scope.message = "";
+				scrulling();
+			}
 		} else {
 
 			/*
@@ -154,13 +156,15 @@ app.controller('ChatCtrl', function ($scope, socket) {
 	$scope.edit = function () {
 		var _new = prompt('Write a new username:');
 
-		edit(_new, function (err) {
-			if(err) {
-				alert('Username is already in use');
-			} else {
-				localStorage.setItem('name', _new);
-			}
-		});
+		if(_new) {
+			edit(_new, function (err) {
+				if(err) {
+					alert('Username is already in use');
+				} else {
+					localStorage.setItem('name', _new);
+				}
+			});
+		}
 	};
 
 	/*

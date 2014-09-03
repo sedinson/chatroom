@@ -4,7 +4,7 @@ html(ng-app="chatApp")
 		title ChatRoom
 
 		meta(charset="UTF-8")
-		meta(name="viewport", content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes")
+		meta(name="viewport", content="width=device-width, initial-scale=1, user-scalable=no")
 		meta(name="mobile-web-app-capable", content="yes")
 		meta(name="apple-mobile-web-app-capable", content="yes")
 
@@ -43,7 +43,7 @@ html(ng-app="chatApp")
 					p#typing {{typing}}
 
 					.input
-						paper-input#msg(ng-keypress='sendMessage($event)', ng-model='message' label='Write something funny', multiline='multiline', maxRows='3')
+						textarea#msg(ng-keypress='sendMessage($event)', ng-model='message' placeholder='Write something funny')
 
 		script(src='/public/components/angular/angular.min.js')
 		script(src='/socket.io/socket.io.js')
