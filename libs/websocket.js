@@ -1,3 +1,14 @@
+var db = require("mongojs").connect(
+		'mongodb://localhost:27017/chatroom', ['conversations']
+	)
+  , moment = require('moment')
+;
+
+/**
+ * Contains all user information
+ * 
+ * @return {Object} Methods to work with users
+ */
 var users = (function () {
 	return {
 		list: {},
@@ -89,11 +100,26 @@ module.exports = function (socket) {
 	var name = users.generate.guest(socket);
 
 	/*
-		Send to the new user his username and user list
+		Select last 20 messages from DB
 	 */
-	socket.emit('init', {
-		users: users.get(),
-		name: name
+	var tmp = db.conversations.find({}).sort({
+		date: -1
+	}).limit(20).toArray(function (err, docs) {
+		var _m = [];
+
+		for(var i in docs) {
+			delete docs[i]._id;
+			_m.unshift(docs[i]);
+		}
+
+		/*
+			Send to the new user his username and user list
+		 */
+		socket.emit('init', {
+			users: users.get(),
+			name: name,
+			messages: _m
+		});
 	});
 
 	/*
@@ -119,9 +145,19 @@ module.exports = function (socket) {
 		Broadcast a user's message to other users
 	 */
 	socket.on('send:message', function (data) {
-		socket.broadcast.emit('send:message', {
+		var _m = {
+			date: moment().format('YYYY-MM-DD HH:mm:ss S:SS'),
 			message: data.message,
 			name: name
+		};
+
+		//Save in DB and broadcast the message
+		db.conversations.save(_m, function (err, result) {
+			if(err || !result) {
+				console.log("Error saving...");
+			} else {
+				socket.broadcast.emit('send:message', _m);
+			}
 		});
 	});
 

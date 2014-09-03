@@ -15,6 +15,7 @@ html(ng-app="chatApp")
 		link(rel='import', href='/public/components/core-menu/core-menu.html')
 		link(rel='import', href='/public/components/core-item/core-item.html')
 		link(rel='import', href='public/components/core-icons/core-icons.html')
+		link(rel='import', href='public/components/core-icon-button/core-icon-button.html')
 		link(rel='import', href='/public/components/paper-icon-button/paper-icon-button.html')
 		link(rel='import', href='/public/components/paper-input/paper-input.html')
 		link(rel='stylesheet', href='/public/res/style.css')
@@ -30,14 +31,17 @@ html(ng-app="chatApp")
 			core-header-panel(main='main')
 				core-toolbar#mainheader
 					paper-icon-button#navicon(icon='menu')
-					span(flex='flex') ChatRoom - <span>{{name}}</span>
+					span(flex='flex')
+						core-icon-button(ng-click='edit()', icon='account-circle', title='Click to change name')
+							span {{name}}
 				.content(vertical='vertical', layout='layout')
 					.chat(flex='flex')
 						ul#messages
 							li(ng-repeat='message in messages', ng-class='message.provider')
-								<b>{{message.user}}</b>: {{message.message}}
+								<b>{{message.name}}:</b> {{message.message}}
+
 					.input
-						paper-input#msg(ng-keypress='keyPress($event)', ng-model='message' label='Write something funny', multiline='multiline', maxRows='3')
+						paper-input#msg(ng-keypress='sendMessage($event)', ng-model='message' label='Write something funny', multiline='multiline', maxRows='3')
 
 		script(src='/public/components/angular/angular.min.js')
 		script(src='/socket.io/socket.io.js')

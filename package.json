@@ -28,7 +28,8 @@
     "express": "^4.8.7",
     "jade": "^1.6.0",
     "moment": "^2.8.2",
-    "mongodb": "^1.4.9",
+    "mongojs": "^0.14.1",
     "socket.io": "^1.0.6"
-  }
+  },
+  "devDependencies": {}
 }
