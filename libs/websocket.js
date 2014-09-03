@@ -86,7 +86,6 @@ var users = (function () {
  * @return {[type]}        [description]
  */
 module.exports = function (socket) {
-	console.log(users.get());
 	var name = users.generate.guest(socket);
 
 	/*
@@ -109,7 +108,6 @@ module.exports = function (socket) {
 		and notify to the other users.
 	 */
 	socket.on('disconnect', function () {
-		console.log('User disconnect');
 		if(users.generate.release(name)) {
 			socket.broadcast.emit('user:left', {
 				name: name

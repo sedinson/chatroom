@@ -3,6 +3,11 @@ html(ng-app="chatApp")
 	head
 		title ChatRoom
 
+		meta(charset="UTF-8")
+		meta(name="viewport", content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes")
+		meta(name="mobile-web-app-capable", content="yes")
+		meta(name="apple-mobile-web-app-capable", content="yes")
+
 		script(src='/public/components/platform/platform.js')
 		link(rel='import', href='/public/components/core-drawer-panel/core-drawer-panel.html')
 		link(rel='import', href='/public/components/core-header-panel/core-header-panel.html')
@@ -28,24 +33,11 @@ html(ng-app="chatApp")
 					span(flex='flex') ChatRoom - <span>{{name}}</span>
 				.content(vertical='vertical', layout='layout')
 					.chat(flex='flex')
-						| Holis <br/>
-						| Holis<br/>
-						| Holis<br/>
-						| Holis<br/>
-						| Holis<br/>
-						| Holis<br/>
-						| Holis<br/>
-						| Holis<br/>
-						| Holis<br/>
-						| Holis<br/>
-						| Holis<br/>
-						| Holis<br/>
-						| Holis<br/>
-						| Holis<br/>
-						| Holis<br/>
-						| Holis<br/>
+						ul#messages
+							li(ng-repeat='message in messages', ng-class='message.provider')
+								<b>{{message.user}}</b>: {{message.message}}
 					.input
-						paper-input(label='Write something funny', multiline='multiline', maxRows='3')
+						paper-input#msg(ng-keypress='keyPress($event)', ng-model='message' label='Write something funny', multiline='multiline', maxRows='3')
 
 		script(src='/public/components/angular/angular.min.js')
 		script(src='/socket.io/socket.io.js')
@@ -53,3 +45,4 @@ html(ng-app="chatApp")
 		script(src='/public/js/app.js')
 		script(src='/public/js/services.js')
 		script(src='/public/js/controllers.js')
+		script(src='/public/components/ng-polymer-elements/ng-polymer-elements.min.js')

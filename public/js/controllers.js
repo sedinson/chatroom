@@ -2,11 +2,11 @@
 
 app.controller('ChatCtrl', function ($scope, socket) {
 	$scope.messages = [];
+	$scope.message = "";
 	$scope.users = [];
 	$scope.name = "";
 
 	socket.on('init', function (data) {
-		console.log(data);
 		$scope.users = data.users;
 		$scope.name = data.name;
 	});
@@ -40,7 +40,40 @@ app.controller('ChatCtrl', function ($scope, socket) {
 		$scope.users.push(data.name);
 	});
 
+	/*
+		If an user has sent a message, push to the message list
+	 */
 	socket.on('send:message', function (data) {
-		//Aqui va la vaina
+		$scope.messages.push({
+			provider: 'user',
+			message: data.message,
+			user: data.name
+		});
 	});
+
+	/*
+		KeyPress event on the message text
+		----------------------------------
+		If the user press enter, then the message will be sent, otherwise
+		the status is market as 'writting a message'
+	 */
+	$scope.keyPress = function (e) {
+		var code = e.keyCode || e.which;
+		
+		if(code == 13) {
+			e.preventDefault();
+
+			socket.emit('send:message', {
+				message: $scope.message
+			});
+
+			$scope.messages.push({
+				provider: 'me',
+				message: $scope.message,
+				user: $scope.name
+			});
+
+			$scope.message = "";
+		}
+	};
 });
