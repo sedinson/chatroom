@@ -1,3 +1,6 @@
+/*
+	Configure the connection to de DB
+ */
 var db = require("mongojs").connect(
 		'mongodb://localhost:27017/chatroom', ['conversations']
 	)

@@ -5,7 +5,6 @@
 var express = require('express')
   , socketio = require('socket.io')
   , websocket = require('./libs/websocket')
-  , routes = require('./libs/routes')
   , http = require('http')
 ;
 
@@ -33,13 +32,14 @@ app.set(
 );
 
 /**
- * Methods
+ * Method to load and render the main page.
  */
-app.get('/', routes.index);
-app.get('/partials/:name', routes.partials);
+app.get('/', function (req, res) {
+	res.render('index');
+});
 
 /**
- * WebSockets or polling
+ * Start to listen a new connection to the socket
  */
 io.sockets.on('connection', websocket);
 
