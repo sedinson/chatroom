@@ -23,6 +23,9 @@ core-header-panel {
 .input paper-input {
 	width: 100%;
 }
+#messages {
+	margin: 0;
+}
 core-drawer-panel:not([narrow]) #navicon {
 	display: none;
 }

@@ -3,7 +3,9 @@
 /*
 	Declare App module
  */
-var app = angular.module( 'chatApp', ['ng-polymer-elements'] );
+var app = angular.module(
+	'chatApp', ['ng-polymer-elements']
+);
 
 /*
 	Attach event to user menu button to show userList 

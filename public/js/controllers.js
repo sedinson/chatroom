@@ -22,6 +22,8 @@ app.controller('ChatCtrl', function ($scope, socket) {
 		});
 
 		var i = $scope.users.indexOf(data.name);
+		scrulling();
+
 		if(i >= 0) {
 			$scope.users.splice(i, 1);
 		}
@@ -38,6 +40,7 @@ app.controller('ChatCtrl', function ($scope, socket) {
 		});
 
 		$scope.users.push(data.name);
+		scrulling();
 	});
 
 	/*
@@ -49,6 +52,8 @@ app.controller('ChatCtrl', function ($scope, socket) {
 			message: data.message,
 			user: data.name
 		});
+
+		scrulling();
 	});
 
 	/*
@@ -74,6 +79,15 @@ app.controller('ChatCtrl', function ($scope, socket) {
 			});
 
 			$scope.message = "";
+			scrulling();
 		}
 	};
 });
+
+function scrulling () {
+	var messages = $("#messages");
+
+	$(".chat").animate({
+		scrollTop: messages.height() + 20
+	}, 150);
+}
