@@ -40,6 +40,8 @@ html(ng-app="chatApp")
 							li(ng-repeat='message in messages', ng-class='message.provider')
 								<b>{{message.name}}:</b> {{message.message}}
 
+					p#typing {{typing}}
+
 					.input
 						paper-input#msg(ng-keypress='sendMessage($event)', ng-model='message' label='Write something funny', multiline='multiline', maxRows='3')
 

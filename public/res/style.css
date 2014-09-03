@@ -15,14 +15,6 @@ core-header-panel {
 	overflow: auto;
 }
 
-.input {
-	position: relative;
-	padding: 0 20px;
-}
-.input paper-input {
-	width: 100%;
-}
-
 #messages {
 	margin: 0;
 	list-style: none;
@@ -37,6 +29,25 @@ core-header-panel {
 }
 #messages li.chatroom b {
 	display: none;
+}
+
+#typing {
+	font-style: italic;
+	font-size: 0.9em;
+	color: #555;
+	margin: 0 20px;
+	display: none;
+}
+#typing:after {
+	content: " is typing something...";
+}
+
+.input {
+	position: relative;
+	padding: 0 20px;
+}
+.input paper-input {
+	width: 100%;
 }
 
 core-drawer-panel:not([narrow]) #navicon {

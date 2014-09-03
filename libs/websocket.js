@@ -130,14 +130,23 @@ module.exports = function (socket) {
 	});
 
 	/*
-		If the user has disconnected, then release the username
-		and notify to the other users.
+		Try to change the username
 	 */
-	socket.on('disconnect', function () {
-		if(users.generate.release(name)) {
-			socket.broadcast.emit('user:left', {
-				name: name
+	socket.on('user:name', function (data, cb) {
+		if(users.generate.reserve(data.name, socket)) {
+			users.generate.release(name);
+
+			old = name;
+			name = data.name;
+
+			socket.broadcast.emit('user:name', {
+				name: name,
+				old: old
 			});
+
+			cb(true);
+		} else {
+			cb(false);
 		}
 	});
 
@@ -162,23 +171,23 @@ module.exports = function (socket) {
 	});
 
 	/*
-		Try to change the username
+		Broadcast that the user is typing a message
 	 */
-	socket.on('user:name', function (data, cb) {
-		if(users.generate.reserve(data.name, socket)) {
-			users.generate.release(name);
+	socket.on('send:typing', function (data) {
+		socket.broadcast.emit('send:typing', {
+			name: name
+		});
+	});
 
-			old = name;
-			name = data.name;
-
-			socket.broadcast.emit('user:name', {
-				name: name,
-				old: old
+	/*
+		If the user has disconnected, then release the username
+		and notify to the other users.
+	 */
+	socket.on('disconnect', function () {
+		if(users.generate.release(name)) {
+			socket.broadcast.emit('user:left', {
+				name: name
 			});
-
-			cb(true);
-		} else {
-			cb(false);
 		}
 	});
 };
